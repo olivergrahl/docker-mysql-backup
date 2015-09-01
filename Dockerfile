@@ -18,4 +18,4 @@ RUN apt-get update \
 
 ADD start.sh /start.sh
 
-CMD ["/start.sh"]
+ENTRYPOINT  ["/init","/start.sh"]
