@@ -2,6 +2,11 @@
 
 EXCLUDE_OPT=
 PASS_OPT=
+MYSQL_HOST=$MYSQL_PORT_3306_TCP_ADDR
+MYSQL_PORT=$MYSQL_PORT_3306_TCP_ADDR
+MYSQL_PASSWORD=$MYSQL_ENV_MYSQL_PASS
+MYSQ_LUSER=$MYSQL_ENV_MYSQL_USER
+MYSQL_DB=$MYSQL_ENV_ON_CREATE_DB
 
 for i in "$@"; do
     case $i in
@@ -24,8 +29,8 @@ if [ -n $EXCLUDE_OPT ]; then
 fi
 
 if [ "$1" == "backup" ]; then
-    if [ -n "$2" ]; then
-        databases=$2
+    if [ -n "$MYSQL_DB" ]; then
+        databases=$MYSQL_DB
     else
         databases=`mysql --user=$MYSQL_USER --host=$MYSQL_HOST --port=$MYSQL_PORT ${PASS_OPT} -e "SHOW DATABASES;" | grep -Ev "(Database|information_schema|performance_schema) ${EXCLUDE_OPT}"`
     fi
