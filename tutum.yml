@@ -1,0 +1,42 @@
+tutum-cron:
+  image: vizzbuzz/tutum-cron
+  autorestart: always
+  cpu_shares: 128
+  mem_limit: 64m
+  roles:
+    - global
+  environment:
+    TEST_CRON_SCHEDULE: '0 * * * *'
+  links:
+    - backup
+
+backup:
+  image: sillelien/docker-mysql-backup
+  command: backup
+  links:
+    - mysql
+  environment:
+    AWS_ACCESS_KEY_ID: changeme
+    AWS_SECRET_ACCESS_KEY: changeme
+    AWS_DEFAULT_REGION: eu-west-1
+    S3_BUCKET: changeme
+    S3_PATH: mysql
+
+
+mysql:
+  image: tutum/mysql
+  ports:
+    - 3306:3306
+  restart: always
+  cpu_shares: 4096
+  mem_limit: 1048m
+  volumes:
+    - /var/lib/mysql:/var/lib/mysql
+    - /etc/mysql:/etc/mysql
+  tags:
+    - mysql
+    - live
+  environment:
+    ON_CREATE_DB: dsp
+    MYSQL_USER: dsp
+    MYSQL_PASS: changeme
