@@ -1,5 +1,5 @@
-FROM ubuntu:14.04
-MAINTAINER Iain Mckay <me@iainmckay.co.uk>
+FROM sillelien/jessie
+MAINTAINER Neil Ellis <hello@neilellis.me>
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV MYSQL_HOST 127.0.0.1
@@ -18,4 +18,4 @@ RUN apt-get update \
 
 ADD start.sh /start.sh
 
-ENTRYPOINT ["/start.sh"]
+CMD ["/start.sh"]
