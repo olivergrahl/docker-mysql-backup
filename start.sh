@@ -29,11 +29,9 @@ if [ -n $EXCLUDE_OPT ]; then
 fi
 
 if [ "$1" == "backup" ]; then
-    if [ -n "$MYSQL_DB" ]; then
-        databases=$MYSQL_DB
-    else
-        databases=`mysql --user=$MYSQL_USER --host=$MYSQL_HOST --port=$MYSQL_PORT ${PASS_OPT} -e "SHOW DATABASES;" | grep -Ev "(Database|information_schema|performance_schema) ${EXCLUDE_OPT}"`
-    fi
+
+    databases=`mysql --user=$MYSQL_USER --host=$MYSQL_HOST --port=$MYSQL_PORT ${PASS_OPT} -e "SHOW DATABASES;" | grep -Ev "(Database|information_schema|performance_schema) ${EXCLUDE_OPT}"`
+
  
     for db in $databases; do
         echo "dumping $db"
