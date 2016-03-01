@@ -10,7 +10,7 @@ ENV RESTORE_DB_COLLATION utf8_bin
 ENV S3_PATH mysql
 
 RUN apt-get update \
-    && apt-get install -yq --no-install-recommends python-pip mysql-client \
+    && apt-get install -yq --no-install-recommends python-pip mysql-client wget \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /tmp/* \
