@@ -50,6 +50,12 @@ if [ "$1" == "backup" ]; then
             >&2 echo "couldn't dump $db"
         fi
     done
+    
+    # Send alive signal after successful backup
+    if [ -n "$ALIVE_URL" ]; then
+      wget --no-verbose --user $ALIVE_USERNAME --password $ALIVE_PASSWORD $ALIVE_URL -O /dev/null
+    fi
+
 elif [ "$1" == "restore" ]; then
     if [ -n "$2" ]; then
         archives=$2.gz
