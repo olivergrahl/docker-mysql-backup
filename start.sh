@@ -20,8 +20,8 @@ for i in "$@"; do
     esac
 done
 
-if [ -n $MYSQL_PASSWORD ]; then
-    PASS_OPT="--password=${MYSQL_PASSWORD}"
+if [ -n $MYSQL_PASS ]; then
+    PASS_OPT="--password=${MYSQL_PASS}"
 fi
 
 if [ -n $EXCLUDE_OPT ]; then
@@ -75,11 +75,11 @@ elif [ "$1" == "restore" ]; then
             echo "...restoring"
             db=`basename --suffix=.gz $archive`
 
-            if [ -n $MYSQL_PASSWORD ]; then
-                yes | mysqladmin --host=$MYSQL_HOST --port=$MYSQL_PORT --user=$MYSQL_USER --password=$MYSQL_PASSWORD drop $db
+            if [ -n $MYSQL_PASS ]; then
+                yes | mysqladmin --host=$MYSQL_HOST --port=$MYSQL_PORT --user=$MYSQL_USER --password=$MYSQL_PASS drop $db
 
-                mysql --host=$MYSQL_HOST --port=$MYSQL_PORT --user=$MYSQL_USER --password=$MYSQL_PASSWORD -e "CREATE DATABASE $db CHARACTER SET $RESTORE_DB_CHARSET COLLATE $RESTORE_DB_COLLATION"
-                gunzip -c $tmp | mysql --host=$MYSQL_HOST --port=$MYSQL_PORT --user=$MYSQL_USER --password=$MYSQL_PASSWORD $db
+                mysql --host=$MYSQL_HOST --port=$MYSQL_PORT --user=$MYSQL_USER --password=$MYSQL_PASS -e "CREATE DATABASE $db CHARACTER SET $RESTORE_DB_CHARSET COLLATE $RESTORE_DB_COLLATION"
+                gunzip -c $tmp | mysql --host=$MYSQL_HOST --port=$MYSQL_PORT --user=$MYSQL_USER --password=$MYSQL_PASS $db
             else
                 yes | mysqladmin --host=$MYSQL_HOST --port=$MYSQL_PORT --user=$MYSQL_USER drop $db
 
