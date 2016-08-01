@@ -4,6 +4,8 @@ EXCLUDE_OPT=
 PASS_OPT=
 export MYSQL_HOST=${MYSQL_HOST:=mysql}
 export MYSQL_PORT=${MYSQL_PORT:=3306}
+export MYSQL_USER=${MYSQL_USER:=<required>}
+export MYSQL_PASS=${MYSQL_PASS:=<required>}
 
 for i in "$@"; do
     case $i in
