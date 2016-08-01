@@ -1,4 +1,5 @@
 #!/bin/bash -x
+set -e
 
 EXCLUDE_OPT=
 PASS_OPT=
